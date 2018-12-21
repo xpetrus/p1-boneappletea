@@ -1,0 +1,54 @@
+.jumbotron{
+    background-color: rgba(1, 1, 1, 0.4);
+    color: white;
+}
+.display-1{
+    color:white;
+}
+.navbar{
+    margin-bottom: 40px;
+    background-color: rgba(1, 1, 1, 0.5);
+    color: white;
+}
+.navbar-brand{
+    color:white;
+    font-weight: bold;
+}
+nav a{
+    color: white;
+}
+.foodsearch{
+    margin-top:40px;
+}
+p{
+    font-family: 'Raleway', sans-serif;
+}
+.display-1{
+    font-family: 'Raleway', sans-serif;
+}
+nav a:hover { color: rgb(94, 92, 92); }
+body{
+    background: url(images/cutboard.jpg);
+}
+.card{
+    background-color: rgb(1,1,1,0.5);
+    color:white;
+}
+.card-header{
+    background-color: rgb(1,1,1, 0.6);
+}
+.youtubevids{
+    margin-top:20px;
+}
+
+
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+  }
+  
+
+
