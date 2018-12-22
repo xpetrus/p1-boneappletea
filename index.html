@@ -7,6 +7,7 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
         <link rel= "stylesheet" type = "text/css" href ="style.css">
         <script src="https://code.jquery.com/jquery.js"></script>
+        <script src="app.js"></script>
     </head>
     <body>
             <video autoplay muted loop id="myVideo">
@@ -48,9 +49,9 @@
                                 a variety of delicious recipes to try out!
                             </p>
 
-                            <form class="form-inline foodsearch">
-                                    <input class="form-control mr-sm-2" type="search" placeholder="Food?" aria-label="Search">
-                                    <button class="btn btn-outline-success" type="submit">Search</button>
+                            <form class="form-inline foodsearch" action="results.html">
+                                    <input class="form-control mr-sm-2" type="text" id="recipe-input" placeholder="Food?" aria-label="Search">
+                                    <button class="btn btn-outline-success" id="add-food" type="submit">Search</button>
                                     <a href="results.html" class="button">temp</a>
                             </form>
                         </div>
