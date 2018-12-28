@@ -60,66 +60,11 @@ $(document).ready(function () {
           class: "col-12 col-md-4 recipeName"
         });
         // Storing the recipe title
-    //    var title = response.hits[j].recipe.label;
-
-
-    //    var link = response.hits[j].recipe.url;
-
-
-///Dina
-
-      // Storing the recipe title
-      var title = response.hits[j].recipe.label;
-      var calories = response.hits[j].recipe.calories;
-      var numIngredients = response.hits[j].recipe.ingredientLines.length;
-      var time = response.hits[j].recipe.totalTime;
-      var servings = response.hits[j].recipe.yield;
-      var link = response.hits[j].recipe.url;
-
-      console.log("link======>>>>>>>"+link);
-      //var str = "Instructions ";
-      //var link = str.link("response1.hits[j].recipe.url");
-      sessionStorage.setItem("title",title);
-      var titleNew = sessionStorage.getItem("title");
-      // Creating an element to have the recipe information displayed
-      var pSpace = $("<p>").text(" ");
-      var pOne = $("<p>").text("Recipe: " + title);
-      var pTwo = $("<p>").text("Calories: " + calories);
-      var pThree = $("<p>").text("Number of ingredients: " + numIngredients);
-      var pFour = $("<p>").text("Time to make: " + time + " minutes");
-      var pFive = $("<p>").text(" Number of servings: " + servings);
-      //var txt = "Instructions";
-      //var pSix = (txt.link("link"));
-     // var pSix = (txt.link("http://www.marthastewart.com/332664/chicken-gravy"));
-      var pSix = $("<a href="+link+">Instructions</a>");
-      //var pSix = $("<a href  src='" + url_new + "' frameborder='0' allowfullscreen autoplay='1'></iframe>");
-      //document.write("<p>Link: " + pSix.link("link") + "</p>");
-      //document.getElementById("pSix").innerHTML = link;
-     // <a class="link2" href="response1.hits[j].recipe.url">Instructions</a>
-      //console.log("link"+pSix);
-
-      // Displaying the information
-      titleDiv.append(pSpace);
-      titleDiv.append(pOne);
-      titleDiv.append(pTwo);
-      titleDiv.append(pThree);
-      titleDiv.append(pFour);
-      titleDiv.append(pFive);
-      titleDiv.append(pSix);
-
-
-///Dina
-
-     // var instr = $("<a>");
-     // $(instr).attr('href', 'link');
-     // $(instr).attr("text", "Instructions");
-     // titleDiv.append(instr);
-      //console.log(href);
-
+        var title = response.hits[j].recipe.label;
         // Creating an element to have the recipe title displayed
-        //var pOne = $("<p>").text("Recipe: " + title);
+        var pOne = $("<p>").text("Recipe: " + title);
         // Displaying the title
-        //titleDiv.append(pOne);
+        titleDiv.append(pOne);
         // Retrieving the URL for the images, a still one and an animated one       
         // Youtube video
         console.log(j+"Start----------");
@@ -137,8 +82,6 @@ $(document).ready(function () {
                 var url_new = "https://www.youtube.com/embed/"+data.items[0].id.videoId;
                 console.log("before_url_append===="+url_new);
                 var video = $("<iframe  src='" + url_new + "' frameborder='0' allowfullscreen autoplay='1'></iframe>");
-                sessionStorage.setItem("youtube",url_new);
-                var youtubeNew = sessionStorage.getItem("youtube");
                 youtubeDiv.append(video);
             });
         console.log(j+"End----------");
@@ -152,21 +95,26 @@ $(document).ready(function () {
       }
     });
    
-  $("#add-food").on("click", function(event) {
+ /* $("#add-food").on("click", function(event) {
+
     event.preventDefault();
  
     //Taking value of input from submit box and calling it ingredient
     var ingredient = $("#recipe-input").val().trim();
     //console.log("ingredient== "+ ingredient);
+
     sessionStorage.clear();
+
     sessionStorage.setItem("ingredient", ingredient);
     var ingredientNew = sessionStorage.getItem("ingredient")
+
     //Linking to url with my API key and a variable for the ingredient, using parameters of 2 recipes
    var queryURL = "https://api.edamam.com/search?q=" + ingredientNew +"&app_id=119b1f5d&app_key=b02acfd3fb2ab3a0d297e1099f1c5743&from=0&to=3";
     console.log(queryURL);
     
       //Empties any pictures that may be there
     $("#recipe-view").empty();
+
     // Creating an AJAX call for the button being clicked
    $.ajax({
       url: queryURL,
@@ -174,24 +122,31 @@ $(document).ready(function () {
     }).then(function (response) {
       console.log(response);
       
+
       //For loop to go through and display 3 recipes and images
      for (var j = 0; j < 3; j++) {
         // Create a row div
         var row = $("<div>", {
           class: "row"
         });
+
         // Creating a div to hold the recipe
         var ingredDiv = $("<div>", {
           class: "col-12 col-md-4 ingredients"
         });
         // ingredDiv.attr("style", "display: inline-block");
+
         var imgRecipe = response.hits[j].recipe.image;
+
          // Creating an element to hold the image and assigning attributes to it
          var image = $("<img>");
          image.attr("src", imgRecipe);
          image.attr("style", "padding:10px");
+
          // Appending the image
         ingredDiv.append(image);
+
+
          // Creating a div to hold the recipe
          var titleDiv = $("<div>", {
           class: "col-12 col-md-4 recipeName"
@@ -204,12 +159,14 @@ $(document).ready(function () {
         // Displaying the title
         titleDiv.append(pOne);
         console.log(pOne);
+
        // Youtube video
        var youtubeDiv = $("<div>", {
         class: "col-12 col-md-4 youtube"
         });
         //var url_new= youtube(title);
         console.log("Y2");
+
         ///-- Youtube video fetching
         var request = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=2&order=viewCount&q=" + title +"&key="+APIKey;
         $.ajax({
@@ -228,11 +185,15 @@ $(document).ready(function () {
         ///-- Youtube video fetching
         // append columns to row
         row.append(ingredDiv, titleDiv,youtubeDiv);
+
         // append row to recipe-view
         $('#recipe-view').append(row);
+
       }
     });
    
-    });
+
+    });*/
     
   });
+
