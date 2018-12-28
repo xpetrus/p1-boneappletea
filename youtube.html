@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Youtube Recipies</title>
+</head>
+
+<body>
+  <!-- Retrieved data will be dumped here -->
+    <div class="row">
+        <div class="col-md-9 recipe_gifs" id="recipe-view"></div>
+        <div class="col-md-3 recipe_input_css form-group" id="input-view">
+        <form id="recipe-form">
+            <label for="recipe-input" class="label">Recipe</label>
+            <input type="text" id="recipe-input" class="form-control">
+            
+        
+            <!-- Button triggers new animal to be added -->                
+            <input class="btn btn-info" type="submit" value="Submit" id="add-recipe">
+            <p id="alert"></p>
+        </form>
+        </div>
+    </div>
+  <div class="dump"></div>
+  <div class="video">
+    
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+  <script type="text/javascript">
+    // This is  youtube API key
+   var APIKey = "AIzaSyBUk3vcxA5iXsgPtxMF2S1RJr04STFnNI0";
+
+     // This function handles events where a animal button is clicked
+  $("#add-recipe").on("click", function(event) {    
+    event.preventDefault();    
+    var recipe = $("#recipe-input").val().trim();
+    
+   //var request = "https://www.googleapis.com/youtube/v3/videos?part=snippet&maxResults=2&order=viewCount&videoCategoryId=0&search_query=" + search + "&key=" + APIKey;
+
+   
+   var request = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=2&order=viewCount&q=" + recipe +"&key="+APIKey;
+   
+    $.ajax({
+        url: request,
+        method: "GET"
+    }).then(function(response) {
+            console.log(response);            
+            var url_new = "https://www.youtube.com/embed/"+response.items[0].id.videoId;            
+            $(".dump").html(url_new + "<p>" +response.items[0].snippet.title+"</p>");
+            $(".video").html("<iframe width='640' height='360' src='" + url_new + "' frameborder='0' allowfullscreen autoplay='1'></iframe>");
+        });
+	 });	
+  </script>
+</body>
+
+</html>
