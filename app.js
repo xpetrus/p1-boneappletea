@@ -25,10 +25,10 @@ $(document).ready(function () {
     var max = sessionStorage.getItem("max");
     var ingredientNew = sessionStorage.getItem("ingredient");
     console.log("ingredientNew=="+ingredientNew);
-
+    console.log("min = " + min);
     //Linking to url with my API key and a variable for the ingredient, using parameters of 2 recipes
-    var queryURL = "https://api.edamam.com/search?q=" + ingredientNew +"&app_id=119b1f5d&app_key=b02acfd3fb2ab3a0d297e1099f1c5743&from=0&to=3";
-    //var queryURL = "https://api.edamam.com/search?q=" + ingredientNew +"&app_id=119b1f5d&app_key=b02acfd3fb2ab3a0d297e1099f1c5743&from=" + min + "&to=" + max;
+    //var queryURL = "https://api.edamam.com/search?q=" + ingredientNew +"&app_id=119b1f5d&app_key=b02acfd3fb2ab3a0d297e1099f1c5743&from=0&to=3";
+    var queryURL = "https://api.edamam.com/search?q=" + ingredientNew +"&app_id=119b1f5d&app_key=b02acfd3fb2ab3a0d297e1099f1c5743&from=" + min + "&to=" + max;
     console.log("queryURL==="+queryURL);
     
       //Empties any pictures that may be there
@@ -132,6 +132,15 @@ $(document).ready(function () {
    
   $("#add-food").on("click", function(event) {
     event.preventDefault();
+    
+    console.log("min = " + min);
+    //Taking value of input from submit box and calling it ingredient
+    var ingredient = $("#recipe-input").val().trim();
+    //sessionStorage.clear();
+
+    sessionStorage.setItem("ingredient", ingredient);
+    var ingredientNew = sessionStorage.getItem("ingredient")
+
     if (sessionStorage !== "undefined") {
       if (sessionStorage.clickcount) {
         sessionStorage.clickcount = Number(sessionStorage.clickcount) + 1;
@@ -144,11 +153,9 @@ $(document).ready(function () {
       sessionStorage.setItem("min", min);
       sessionStorage.setItem("max", max);
     }
-    //Taking value of input from submit box and calling it ingredient
-    var ingredient = $("#recipe-input").val().trim();
-    sessionStorage.clear();
-    sessionStorage.setItem("ingredient", ingredient);
-    var ingredientNew = sessionStorage.getItem("ingredient")
+    console.log("min = " + min);
+
+
     //Linking to url with my API key and a variable for the ingredient, using parameters of 2 recipes
    //var queryURL = "https://api.edamam.com/search?q=" + ingredientNew +"&app_id=119b1f5d&app_key=b02acfd3fb2ab3a0d297e1099f1c5743&from=0&to=3";
    var queryURL = "https://api.edamam.com/search?q=" + ingredientNew +"&app_id=119b1f5d&app_key=b02acfd3fb2ab3a0d297e1099f1c5743&from=" + min + "&to=" + max;
