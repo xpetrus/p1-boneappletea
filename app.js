@@ -132,6 +132,9 @@ $(document).ready(function () {
    
   $("#add-food").on("click", function(event) {
     event.preventDefault();
+
+    location.href = "results.html";
+
     
     console.log("min = " + min);
     //Taking value of input from submit box and calling it ingredient
