@@ -132,6 +132,7 @@ $(document).ready(function () {
    
   $("#add-food").on("click", function(event) {
     event.preventDefault();
+    location.href = "results.html";
     if (sessionStorage !== "undefined") {
       if (sessionStorage.clickcount) {
         sessionStorage.clickcount = Number(sessionStorage.clickcount) + 1;
