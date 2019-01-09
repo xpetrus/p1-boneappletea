@@ -1,5 +1,20 @@
 var APIKey = "AIzaSyBUk3vcxA5iXsgPtxMF2S1RJr04STFnNI0";  
 var url_new;
+
+//Firebase
+
+var config = {
+  apiKey: "AIzaSyD5hZwW9Nq_GHhRiPodz6O0gKlgg4MWftU",
+  authDomain: "firstproject-f9c80.firebaseapp.com",
+  databaseURL: "https://firstproject-f9c80.firebaseio.com",
+  projectId: "firstproject-f9c80",
+  storageBucket: "firstproject-f9c80.appspot.com",
+  messagingSenderId: "702580346589"
+};
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
 function youtube(title){
   title='\"'+title+'\"';
       //console.log(title);
@@ -108,21 +123,7 @@ $(document).ready(function () {
       });
       youtube(title);
       //youtube
-      /*title='\"'+title+'\"';
-      //console.log(title);
-      var request = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=2&order=relevance&relevanceLanguage=en&q=" + title +" recipe &key="+APIKey;
-      console.log(request);
-      $.ajax({
-      url: request,
-      method: "GET",
-      async:false,
-      //global:true
-      }).success(function(data,) 
-      { 
-          url_new = "https://www.youtube.com/embed/"+data.items[0].id.videoId;
-          sessionStorage.setItem("youtube",url_new);
-          var youtubeNew = sessionStorage.getItem("youtube");
-      });*/
+      
       var video = $("<iframe  src='" + url_new + "' frameborder='0' width='90%' height='90%' allowfullscreen autoplay='1'></iframe>");
       youtubeDiv.append(video);        
       row.append(ingredDiv, titleDiv,youtubeDiv);
@@ -139,6 +140,21 @@ $(document).ready(function () {
     console.log("min = " + min);
     //Taking value of input from submit box and calling it ingredient
     var ingredient = $("#recipe-input").val().trim();
+
+    //Firebase
+    // Creates local "temporary" object for holding recipe data
+    var newRecipe = {
+      ingredient: ingredient
+  };
+   // Uploads recipe data to the database
+   database.ref().push(newRecipe);
+  
+   // Logs train to console
+   console.log(newRecipe.ingredient);
+
+   // Clears all of the text-boxes
+   $("#recipe-input").val("");
+
     //sessionStorage.clear();
 
     sessionStorage.setItem("ingredient", ingredient);
@@ -232,18 +248,7 @@ $(document).ready(function () {
       });
       //youtube
       youtube(title);
-      /*title='\"'+title+'\"';
-      var request = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=2&order=relevance&relevanceLanguage=en&q=" + title +"recipe &key="+APIKey;
-      $.ajax({
-      url: request,
-      method: "GET",
-      async:false
-      }).success(function(data) 
-      { 
-          url_new = "https://www.youtube.com/embed/"+data.items[0].id.videoId;
-          sessionStorage.setItem("youtube",url_new);
-          var youtubeNew = sessionStorage.getItem("youtube");
-      });*/
+      
       var video = $("<iframe  src='" + url_new + "' frameborder='0' width='90%' height='90%' allowfullscreen autoplay='1'></iframe>");
       youtubeDiv.append(video);     
 
@@ -257,6 +262,18 @@ $(document).ready(function () {
    
     });
     
-
+    database.ref().limitToLast(5).once('value', function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        var childKey = childSnapshot.key;
+        var childData = childSnapshot.val();
+        //console.log(childData.youtube);
+        var newRow = $("<p>").append($("<p>").text(childData.ingredient)
+        );
+        //var newDiv = ("<div>").text(recipeName + "--" + youtube + "--" + user_name + "--" + ingrad);
+        // Append the new row to the table
+        $('#videos').append(newRow);
+        //$(".dump").append(newRow);
+      });
+    });
   });
 
