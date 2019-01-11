@@ -2,7 +2,6 @@ var APIKey = "AIzaSyBUk3vcxA5iXsgPtxMF2S1RJr04STFnNI0";
 var url_new;
 
 //Firebase
-
 var config = {
   apiKey: "AIzaSyD5hZwW9Nq_GHhRiPodz6O0gKlgg4MWftU",
   authDomain: "firstproject-f9c80.firebaseapp.com",
@@ -41,8 +40,6 @@ $(document).ready(function () {
     var ingredientNew = sessionStorage.getItem("ingredient");
     console.log("ingredientNew=="+ingredientNew);
     console.log("min = " + min);
-    //Linking to url with my API key and a variable for the ingredient, using parameters of 2 recipes
-    //var queryURL = "https://api.edamam.com/search?q=" + ingredientNew +"&app_id=119b1f5d&app_key=b02acfd3fb2ab3a0d297e1099f1c5743&from=0&to=3";
     var queryURL = "https://api.edamam.com/search?q=" + ingredientNew +"&app_id=119b1f5d&app_key=b02acfd3fb2ab3a0d297e1099f1c5743&from=" + min + "&to=" + max;
     console.log("queryURL==="+queryURL);
     
@@ -122,8 +119,7 @@ $(document).ready(function () {
       class: "col-12 col-md-4 youtube"
       });
       youtube(title);
-      //youtube
-      
+      //youtube      
       var video = $("<iframe  src='" + url_new + "' frameborder='0' width='90%' height='90%' allowfullscreen autoplay='1'></iframe>");
       youtubeDiv.append(video);        
       row.append(ingredDiv, titleDiv,youtubeDiv);
@@ -132,15 +128,16 @@ $(document).ready(function () {
     });
    
   $("#add-food").on("click", function(event) {
-    event.preventDefault();
-
-    location.href = "results.html";
-
-    
+    event.preventDefault();    
     console.log("min = " + min);
     //Taking value of input from submit box and calling it ingredient
     var ingredient = $("#recipe-input").val().trim();
-
+    //Form validation
+    if(ingredient == ""){
+      $("#alert").text("Add an ingredient");
+    }
+    else{
+      location.href = "results.html";
     //Firebase
     // Creates local "temporary" object for holding recipe data
     var newRecipe = {
@@ -149,7 +146,7 @@ $(document).ready(function () {
    // Uploads recipe data to the database
    database.ref().push(newRecipe);
   
-   // Logs train to console
+   // Logs ingredient to console
    console.log(newRecipe.ingredient);
 
    // Clears all of the text-boxes
@@ -174,9 +171,6 @@ $(document).ready(function () {
     }
     console.log("min = " + min);
 
-
-    //Linking to url with my API key and a variable for the ingredient, using parameters of 2 recipes
-   //var queryURL = "https://api.edamam.com/search?q=" + ingredientNew +"&app_id=119b1f5d&app_key=b02acfd3fb2ab3a0d297e1099f1c5743&from=0&to=3";
    var queryURL = "https://api.edamam.com/search?q=" + ingredientNew +"&app_id=119b1f5d&app_key=b02acfd3fb2ab3a0d297e1099f1c5743&from=" + min + "&to=" + max;
     
       //Empties any pictures that may be there
@@ -239,8 +233,7 @@ $(document).ready(function () {
       titleDiv.append(pThree);
       titleDiv.append(pFour);
       titleDiv.append(pFive);
-      titleDiv.append(pSix);
-      
+      titleDiv.append(pSix);      
 
     //Start Youtube div
       var youtubeDiv = $("<div>", {
@@ -250,8 +243,7 @@ $(document).ready(function () {
       youtube(title);
       
       var video = $("<iframe  src='" + url_new + "' frameborder='0' width='90%' height='90%' allowfullscreen autoplay='1'></iframe>");
-      youtubeDiv.append(video);     
-
+      youtubeDiv.append(video); 
       ///-- Youtube video fetching
         // append columns to row
         row.append(ingredDiv, titleDiv,youtubeDiv);
@@ -259,17 +251,15 @@ $(document).ready(function () {
         $('#recipe-view').append(row);
       }
     });
-   
+  }
     });
-    
+    //Firebase Section
     database.ref().limitToLast(5).once('value', function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
         var childKey = childSnapshot.key;
         var childData = childSnapshot.val();
-        //console.log(childData.youtube);
         var newRow = $("<p>").append($("<p>").text(childData.ingredient)
         );
-        //var newDiv = ("<div>").text(recipeName + "--" + youtube + "--" + user_name + "--" + ingrad);
         // Append the new row to the table
         $('#videos').append(newRow);
         //$(".dump").append(newRow);
