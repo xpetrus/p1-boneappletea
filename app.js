@@ -15,9 +15,9 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 function youtube(title){
-  title='\"'+title+'\"';
+  title="How to make " + '\"'+title+'\"' + " recipe";
       //console.log(title);
-      var request = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=2&order=relevance&relevanceLanguage=en&q=" + title +" recipe &key="+APIKey;
+      var request = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=2&order=relevance&relevanceLanguage=en&q=" + title +"&key="+APIKey;
       console.log(request);
       $.ajax({
       url: request,
@@ -97,20 +97,16 @@ $(document).ready(function () {
       // Creating an element to have the recipe information displayed
 
       var pSpace = $("<p>").text(" ");
-      var pOne = $("<p>").text("Recipe: " + title);
-      var pTwo = $("<p>").text("Calories: " + calories);
-      var pThree = $("<p>").text("Number of ingredients: " + numIngredients);
-      var pFour = $("<p>").text("Time to make: " + time +  mins);
-      var pFive = $("<p>").text(" Number of servings: " + servings);
+
       var pSix = $("<a href='"+ link +"' target='_blank'>Instructions</a>");
 
       // Displaying the information
       titleDiv.append(pSpace);
-      titleDiv.append(pOne);
-      titleDiv.append(pTwo);
-      titleDiv.append(pThree);
-      titleDiv.append(pFour);
-      titleDiv.append(pFive);
+      titleDiv.append("<p><b>Recipe: </b>"+ title + "</p>");
+      titleDiv.append("<p><b>Calories: </b>"+ calories + "</p>");
+      titleDiv.append("<p><b>Number of ingredients: </b>"+ numIngredients + "</p>");
+      titleDiv.append("<p><b>Time to make: </b>"+ time + mins + "</p>");
+      titleDiv.append("<p><b>Number of servings: </b>"+ servings + "</p>");
       //titleDiv.append(p);
       titleDiv.append(pSix);
 
@@ -258,11 +254,10 @@ $(document).ready(function () {
       snapshot.forEach(function(childSnapshot) {
         var childKey = childSnapshot.key;
         var childData = childSnapshot.val();
-        var newRow = $("<p>").append($("<p>").text(childData.ingredient)
+        var newRow = $("<p>").append("<p><b>"+childData.ingredient+"</b></p>"
         );
         // Append the new row to the table
         $('#videos').append(newRow);
-        //$(".dump").append(newRow);
       });
     });
   });
