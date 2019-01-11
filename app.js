@@ -254,7 +254,9 @@ $(document).ready(function () {
       snapshot.forEach(function(childSnapshot) {
         var childKey = childSnapshot.key;
         var childData = childSnapshot.val();
-        var newRow = $("<p>").append("<p><b>"+childData.ingredient+"</b></p>"
+        var ingrad =  childData.ingredient;
+        var final_ingrad = ingrad.charAt(0).toUpperCase()+ ingrad.slice(1).toLowerCase();
+        var newRow = $("<p>").append($("<p>").text(final_ingrad)
         );
         // Append the new row to the table
         $('#videos').append(newRow);
