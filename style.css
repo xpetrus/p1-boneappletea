@@ -49,6 +49,9 @@ body{
     min-width: 100%; 
     min-height: 100%;
   }
+  #alert{
+      color:red;
+  }
   
 
 
